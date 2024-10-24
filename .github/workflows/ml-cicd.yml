@@ -32,6 +32,8 @@ job: # định nghĩa công việc sẽ thực hiện
         python train.py
         cat metrics.txt >> report.md
         echo "![](./plot.png)" >> report.md
+    - name: Upload Results and Post CML Comment
+      run: |
         cml comment create  report.md
 
 
