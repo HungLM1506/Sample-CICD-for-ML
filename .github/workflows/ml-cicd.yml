@@ -34,6 +34,22 @@ jobs: # định nghĩa công việc sẽ thực hiện
         name: results
         path: |
           report.md
+          plot.png
+          metrics.txt
+
+    - name: Comment on Pull Request
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const report = fs.readFileSync('report.md', 'utf8');
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: report
+          });
 
 
     
