@@ -36,6 +36,7 @@ jobs: # định nghĩa công việc sẽ thực hiện
         echo "![](./plot.png)" >> report.md
     - name: Upload Results and Post CML Comment
       run: |
+        pip install cml 
         cml comment create  report.md
 
 
