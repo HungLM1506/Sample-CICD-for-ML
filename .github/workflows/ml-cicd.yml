@@ -19,25 +19,21 @@ jobs: # định nghĩa công việc sẽ thực hiện
     - name: Set up Python
       uses: actions/setup-python@v4
 
-    - name : Setup CML tool
-      uses: iterative/setup-cml@v1
-
     - name: Install dependencies 
       run: pip install -r requirements.txt
 
     - name: Train Model
-
       run: |
         python train.py
         cat metrics.txt >> report.md
         echo "![](./plot.png)" >> report.md
 
-    - name: Upload Results and Post CML Comment
-      env: 
-        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        pip install cml 
-        cml comment create  report.md
+    - name: Upload Results as Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: results
+        path: |
+          report.md
 
 
     
