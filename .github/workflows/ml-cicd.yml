@@ -8,7 +8,7 @@ on: # xác định sự kiện kích hoạt workflow
     branches:
       - main
   
-job: # định nghĩa công việc sẽ thực hiện
+jobs: # định nghĩa công việc sẽ thực hiện
   build: # tên job, chạy trên môi trường ubuntu-latest
     runs-on: ubuntu-latest # chỉ định môi trường mà job sẽ chạy có thể là window, ubuntu hay macos
 
@@ -28,6 +28,8 @@ job: # định nghĩa công việc sẽ thực hiện
       run: pip install -r requirements.txt
 
     - name: Train Model
+      env: 
+        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         python train.py
         cat metrics.txt >> report.md
